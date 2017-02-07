@@ -6,10 +6,18 @@ body {
 	width: auto;
 }
 
-nav {}
+nav {
+	height: 7vh;
+	background-color: black;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+}
 
 main {
 	width: auto;
+	margin-top: 10vh;
 }
 
 div {
@@ -18,7 +26,7 @@ div {
 
 div img {
 	width: 10vw;
-	filter: invert(100%);
+	filter: invert(90%);
 }
 
 .book {
