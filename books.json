@@ -1,0 +1,58 @@
+[
+	{
+		"Series Name": "Miss Peregrine's Home For Peculiar Children"
+		, "Books in Series": "3"
+		, "Books": [
+			{
+				"Title": "Miss Peregrine's Home For Peculiar Children"
+				, "img": "MissPeregrineCover.jpg"
+			}
+			, {
+				"Title": "Hollow City"
+				, "img": "HollowCityCover.jpg"
+			}
+			, {
+				"Title": "Library of Souls"
+				, "img": "LibraryofSoulsCover.jpg"
+			}
+		]
+		, "Author": "Ransom Riggs"
+		, "In Progress": "0"
+	}
+	, {
+		"Series Name": "Mistborn"
+		, "Books in Series": "7"
+		, "Books": [
+			{
+				"Title": "The Final Empire"
+				, "img": "FinalEmpireCover.jpg"
+			}
+			, {
+				"Title": "The Well of Ascension"
+				, "img": "WellofAscensionCover.jpg"
+			}
+			, {
+				"Title": "The Hero of Ages"
+				, "img": "HeroofAgesCover.png"
+			}
+			, {
+				"Title": "The Allow of Law"
+				, "img": "AlloyOfLawCover.jpg"
+			}
+			, {
+				"Title": "Shadows of Self"
+				, "img": "ShadowsOfSelfCover.jpg"
+			}
+			, {
+				"Title": "Bands of Mourning"
+				, "img": "BandsOfMourningCover.jpg"
+			}
+			, {
+				"Title": "Secret History"
+				, "img": "SecretHistoryCover.jpg"
+			}
+		]
+		, "Author": "Brandon Sanderson"
+		, "In Progress": "1"
+	}
+]

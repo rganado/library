@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title> Books </title>
+</head>
+
+<body>
+	<nav> </nav>
+	<main id="main"></main>
+	<footer> </footer>
+	<script>
+		var count = 0;
+		var data;
+		var ser_num, book_num;
+		var ser_name;
+
+		function shift(series, num) {
+			count++;
+			if (count % 2 == 0) {
+				shiftin(series, num);
+			}
+			else {
+				shiftout(series, num);
+			}
+		}
+
+		function shiftout(series, seriesnum, num) {
+			console.log("out");
+			for (var i = 0; i < num; i++) {
+				var book = document.getElementById(series + i);
+				console.log(series + i);
+				var move = (70 * (i)) + 20;
+				book.style.transform = 'translateX(' + move + 'vw)';
+				if (num > 3) {
+					if (i == 2) {
+						for (var j = 0; j < data.length; j++) {
+							if (data[j]["Series Name"] == series) {
+								console.log("Changing image");
+								var img = book.getElementsByTagName("IMG");
+								console.log("SRC " + data[j].Books[2].img);
+								console.log(img);
+								img[0].src = data[j].Books[2].img;
+								console.log(img.src);
+							}
+						}
+					}
+					else if (i > 2) {
+						document.getElementById(series + i).style.display = 'block';
+					}
+				}
+				document.querySelector('html').style.width = 'auto';
+			}
+			var close = document.getElementById('close');
+			close.style.display = 'block';
+			close.style.transform = 'translate(10vw, ' + (50 + (110 * seriesnum)) + 'vw)';
+			ser_num = seriesnum;
+			book_num = num;
+			ser_name = series;
+		}
+
+		function shiftin(series, num) {
+			console.log("in");
+			for (var i = 0; i < num; i++) {
+				var book = document.getElementById(series + i);
+				console.log(series + i);
+				var move = 10 * (i);
+				var scale = 1 - (0.05 * (i));
+				book.style.transform = 'translateX(' + move + 'vw) scale(' + scale + ')';
+				if (num > 3) {
+					var img = book.getElementsByTagName("IMG");
+					if (i == 2) {
+						img[0].src = "more.jpg";
+					}
+					else if (i > 2) {
+						document.getElementById(series + i).style.display = 'none';
+					}
+				}
+				document.querySelector('html').style.width = '100vw';
+			}
+			document.getElementById('close').style.display = 'none';
+		}
+
+		function readTextFile(file, callback) {
+			var rawFile = new XMLHttpRequest();
+			rawFile.overrideMimeType("application/json");
+			rawFile.open("GET", file, true);
+			rawFile.onreadystatechange = function () {
+				if (rawFile.readyState === 4 && rawFile.status == "200") {
+					callback(rawFile.responseText);
+				}
+			}
+			rawFile.send(null);
+		}
+		readTextFile("books.json", function (text) {
+			data = JSON.parse(text);
+			console.log(data);
+			populate();
+		});
+
+		function populate() {
+			console.log("Length of Data = " + data.length);
+			//Close Button
+			var clo = document.createElement("DIV");
+			var clo_im = document.createElement("IMG");
+			clo_im.src = "close.png";
+			clo_im.id = "close";
+			clo_im.style.display = 'none';
+			clo.appendChild(clo_im);
+			for (var i = 0; i < data.length; i++) {
+				var booklen = data[i].Books.length;
+				var series = data[i]["Series Name"];
+				console.log("Book Len = " + booklen);
+				main = document.getElementById("main");
+				var sec = document.createElement("SECTION");
+				sec.className = "series";
+				sec.id = series;
+				console.log(sec.id);
+				for (var j = 0; j < data[i].Books.length; j++) {
+					var fig = document.createElement("FIGURE");
+					var img = document.createElement("IMG");
+					var cap = document.createElement("FIGCAPTION");
+					var move = 10 * j;
+					var scale = 1 - (0.05 * j);
+					//
+					fig.className = "book";
+					fig.id = data[i]["Series Name"] + j;
+					console.log("Book id = " + data[i]["Series Name"] + j);
+					if (booklen <= 3) {
+						img.src = data[i].Books[j].img;
+					}
+					else {
+						if (j < 2) {
+							img.src = data[i].Books[j].img;
+						}
+						else if (j == 2) {
+							img.src = "more.jpg";
+						}
+						else {
+							img.src = data[i].Books[j].img;
+							fig.style.display = 'none';
+						}
+					}
+					cap.innerHTML = data[i].Books[j].Title;
+					fig.style.zIndex = -j;
+					fig.style.transform = 'translateX(' + move + 'vw) scale(' + scale + ')';
+					//Append child
+					fig.appendChild(img);
+					fig.appendChild(cap);
+					sec.appendChild(fig);
+				}
+				var trans = 100 * (i) + 10 * i;
+				sec.style.transform = 'translateY(' + trans + 'vw)';
+				//Append to Main
+				main.appendChild(sec);
+				console.log("Created Series");
+			}
+			main.appendChild(clo);
+		}
+		document.querySelector('body').addEventListener('click', function (event) {
+			console.log("Event " + event.target.tagName);
+			if (event.target.tagName.toLowerCase() === 'img') {
+				console.log("id " + event.target.parentNode.id);
+				var ser = event.target.parentNode.parentNode.id;
+				console.log(ser);
+				if (event.target.id == 'close') {
+					console.log('close');
+					shiftin(ser_name, book_num);
+				}
+				for (var i = 0; i < data.length; i++) {
+					if (data[i]["Series Name"] == ser) {
+						shiftin(ser_name, book_num);
+						shiftout(ser, i, data[i].Books.length);
+					}
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
