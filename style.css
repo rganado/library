@@ -7,18 +7,61 @@ body {
 .container-fluid {
 	margin: 0;
 	padding: 0;
+	margin-top: 5em;
+}
+
+nav {
+	background-color: black;
+	color: white;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+}
+
+nav h1 {
+	margin-left: 2em;
+}
+
+h1:nth-child(2) {
+	float: right;
+	margin-right: 2em;
+	text-align: right;
+}
+
+nav ul,
+nav li {
+	margin: 0;
+	padding: 0;
+}
+
+nav ul {
+	list-style: none;
+	margin-left: 2em;
+	margin-right: 2em;
+	margin-bottom: 1em;
+}
+
+.top {
+	float: left;
+}
+
+textarea {
+	resize: none;
+	width: 100%;
+	font-size: 2em;
+	text-align: left;
+	height: 1em;
 }
 
 #close {
 	display: none;
 	width: 6em;
 	height: 18em;
-	//background-color: red;
 }
 
 section {
 	margin: 2em;
-	//background-color: white;
 	height: 20em;
 	white-space: nowrap;
 	overflow-x: auto;

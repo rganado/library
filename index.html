@@ -5,14 +5,26 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> Books </title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<style>
-
-	</style>
-</head>
+	<link rel="stylesheet" type="text/css" href="style.css"> </head>
 
 <body>
-	<nav></nav>
+	<nav>
+		<h1 class="top">EBRARY</h1>
+		<h1 class="menuicon top" onclick="menu()">⋮</h1>
+		<div id='sign' style="display: none">
+			<div class="signin">
+				<ul>
+					<li>
+						<textarea placeholder="Username"></textarea>
+					</li>
+					<li>
+						<textarea placeholder="Password"></textarea>
+					</li>
+				</ul>
+			</div>
+			<div class="signedin"> </div>
+		</div>
+	</nav>
 	<main class="container-fluid"> </main>
 	<script>
 		function spread(series) {
@@ -63,7 +75,9 @@
 					}
 				}
 				else {
-					t.style.display = "none";
+					var count = (14 * (i - 2)) + 29;
+					t.style.transform = 'translateX(-' + count + 'em) scale(0.85)';
+					t.style.zIndex = '2';
 				}
 			}
 			it = sec[0].firstChild;
@@ -139,9 +153,13 @@
 				collapse(sectionC);
 			}
 		}
-		document.querySelector('body').addEventListener('click', function (event) {
+		document.querySelector('main').addEventListener('click', function (event) {
 			//console.log("Event " + event.target.tagName);
 			console.log(event.target.id);
+			var menu = document.getElementById('sign');
+			if (menu.style.display != 'none') {
+				menu.style.display = 'none';
+			}
 			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'bookimg') {
 				console.log('in');
 				var ser = event.target.parentNode.parentNode.parentNode.id;
@@ -160,6 +178,16 @@
 			}
 			//			if (event.target.tagName.toLowerCase() === 'aside') { // serC = event.target.parentNode.className; // collapse(serC); // }
 		});
+
+		function menu() {
+			var menu = document.getElementById('sign');
+			if (menu.style.display == 'none') {
+				menu.style.display = 'block';
+			}
+			else {
+				menu.style.display = 'none';
+			}
+		}
 	</script>
 </body>
 
