@@ -52,11 +52,21 @@
 						document.getElementById(series + i).style.display = 'block';
 					}
 				}
-				document.querySelector('html').style.width = 'auto';
+				//document.querySelector('html').style.width = 'auto';
 			}
 			var close = document.getElementById('close');
 			close.style.display = 'block';
 			close.style.transform = 'translate(10vw, ' + (50 + (110 * seriesnum)) + 'vw)';
+			close.style.display = 'inline-block';
+			for (var i = 0; i < num; i++) {
+				var book = document.getElementById(series + i);
+				console.log(series + i);
+				var move = (70 * (i)) + 20;
+				book.style.display = 'inline-block';
+			}
+			document.getElementById(series).overflow = 'auto';
+			document.getElementById(series).whiteSpace = 'nowrap';
+			console.log('wrap ' + series);
 			ser_num = seriesnum;
 			book_num = num;
 			ser_name = series;

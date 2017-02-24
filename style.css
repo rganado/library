@@ -29,6 +29,14 @@ div img {
 	filter: invert(90%);
 }
 
+section {
+	/*
+	white-space: nowrap;
+	overflow-x: auto;
+	overflow-y: hidden;
+*/
+}
+
 .book {
 	position: absolute;
 	z-index: 1;

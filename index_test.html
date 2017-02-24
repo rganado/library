@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> Books </title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			background-color: grey;
+		}
+		
+		.container-fluid {
+			margin: 0;
+			padding: 0;
+		}
+		
+		#close {
+			display: none;
+			width: 5em;
+			height: 18em;
+			background-color: red;
+		}
+		
+		section {
+			margin: 2em;
+			background-color: white;
+			height: 20em;
+			white-space: nowrap;
+			overflow-x: auto;
+			overflow-y: hidden;
+		}
+		
+		.b {
+			padding-top: 0em;
+		}
+		
+		.b img {
+			min-height: 18em;
+			max-height: 18em;
+		}
+		
+		.item {
+			display: absolute;
+			position: relative;
+			transition: transform 0.2s;
+		}
+		
+		article figure {
+			margin-left: 1em;
+			margin-right: 1em;
+		}
+	</style>
+</head>
+
+<body>
+	<nav></nav>
+	<main class="container-fluid">
+		<section>
+			<aside class="item" id="close">
+				<figure></figure>
+			</aside>
+			<article class="item">
+				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
+			</article>
+			<article class="item">
+				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
+			</article>
+			<article class="item">
+				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
+			</article>
+			<article class="item">
+				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
+			</article>
+			<article class="item">
+				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
+			</article>
+		</section>
+	</main>
+	<script>
+		window.onload = function () {
+			spread();
+			collapse();
+		}
+
+		function spread() {
+			item = document.getElementsByClassName('item');
+			//console.log(item);
+			sec = document.getElementsByTagName('SECTION');
+			for (var i = 0; i < item.length; i++) {
+				var t = item[i];
+				t.style.display = "inline-block";
+				t.style.transform = 'translateX(0em)';
+			}
+			item = document.getElementById('close');
+			item.style.display = 'inline-block';
+			item.style.visibility = 'visible';
+			item.style.transform = 'translateX(0em)';
+			sec[0].style.overflowX = 'auto';
+			sec[0].id = 'opened';
+		}
+
+		function collapse() {
+			item = document.getElementsByClassName('item');
+			//console.log(item);
+			sec = document.getElementsByTagName('SECTION');
+			for (var i = 0; i < item.length; i++) {
+				//console.log(i);
+				var t = item[i];
+				if (i < 4) {
+					if (i == 1) {
+						t.style.transform = 'translateX(-3em) scale(1)';
+						t.style.zIndex = '5';
+					}
+					else if (i == 2) {
+						t.style.transform = 'translateX(-15em) scale(0.9)';
+						t.style.zIndex = '4';
+					}
+					else if (i == 3) {
+						t.style.transform = 'translateX(-27em) scale(0.85)';
+						t.style.zIndex = '3';
+					}
+				}
+				else {
+					t.style.display = "none";
+				}
+			}
+			it = document.getElementById('close');
+			it.style.visibility = 'hidden';
+			//it.style.display = 'none';
+			sec[0].style.overflowX = 'hidden';
+			sec[0].id = 'closed';
+		}
+
+		function readTextFile(file, callback) {
+			var rawFile = new XMLHttpRequest();
+			rawFile.overrideMimeType("application/json");
+			rawFile.open("GET", file, true);
+			rawFile.onreadystatechange = function () {
+				if (rawFile.readyState === 4 && rawFile.status == "200") {
+					callback(rawFile.responseText);
+				}
+			}
+			rawFile.send(null);
+		}
+		readTextFile("books.json", function (text) {
+			data = JSON.parse(text);
+			console.log(data);
+			populate();
+		});
+
+		function populate() {
+			//Get Main Tag
+			main = document.getElementsByTagName('MAIN');
+			main = main[0]; //Select first Main Tag
+			//Each Series gets a Section
+			for (var i = 0; i < data.length; i++) {
+				console.log(i);
+			}
+		}
+		document.querySelector('body').addEventListener('click', function (event) {
+			//console.log("Event " + event.target.tagName);
+			if (event.target.tagName.toLowerCase() === 'img') {
+				var ser = event.target.parentNode.parentNode.parentNode.id;
+				console.log(ser);
+				if (ser == 'closed') {
+					//console.log('close');
+					spread();
+				}
+				//				for (var i = 0; i < data.length; i++) { // if (data[i][ "Series Name"]==s er) { // shiftin(ser_name, book_num); // shiftout(ser, i, data[i].Books.length); // } // }
+			}
+			if (event.target.tagName.toLowerCase() === 'aside') {
+				collapse();
+			}
+		});
+	</script>
+</body>
+
+</html>
