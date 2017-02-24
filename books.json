@@ -94,4 +94,21 @@
 		, "In Progress": "0"
 		, "id": "2"
 	}
+	, {
+		"Series Name": "A Court of Thorns and Roses"
+		, "Books in Series": "2"
+		, "Books": [
+			{
+				"Title": "A Court of Thorns and Roses"
+				, "img": "http://vignette2.wikia.nocookie.net/acourtofthornsandroses/images/5/56/A_Court_of_Thorns_and_Roses.jpg/revision/latest?cb=20150101152745"
+			}
+			, {
+				"Title": "A Court of Mist and Fury"
+				, "img": "http://vignette1.wikia.nocookie.net/acourtofthornsandroses/images/f/f9/A_Court_of_Mist_and_Fury_-_Cover.jpg/revision/latest?cb=20160114161509"
+			}
+		]
+		, "Author": "Sarah J. Maas"
+		, "In Progress": "1"
+		, "id": "3"
+	}
 ]

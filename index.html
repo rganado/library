@@ -3,13 +3,14 @@
 
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title> Books </title>
 	<link rel="stylesheet" type="text/css" href="style.css"> </head>
+<link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
 
 <body>
 	<nav>
-		<h1 class="top">EBRARY</h1>
+		<h1 class="top">E-BRARY</h1>
 		<h1 class="menuicon top" onclick="menu()">⋮</h1>
 		<div id='sign' style="display: none">
 			<div class="signin">
@@ -39,12 +40,16 @@
 				var t = document.getElementById(ser + 'T' + i).parentNode;
 				t.style.display = "inline-block";
 				t.style.transform = 'translateX(0em)';
+				t.style.webkitTransform = 'translate3d(0em, 0, 0)';
+				t.style.transition = 'transform 0.2s';
+				t.style.webkitTransition = '-webkit-transform 0.2s';
 			}
 			item = sec[0].firstChild;
 			console.log(item);
 			item.style.display = 'inline-block';
 			item.style.visibility = 'visible';
 			item.style.transform = 'translateX(0em)';
+			item.style.webkitTransform = 'translate3d(0em, 0, 0)';
 			sec[0].style.overflowX = 'auto';
 			sec[0].id = 'opened';
 		}
@@ -63,22 +68,28 @@
 				if (i < 3) {
 					if (i == 0) {
 						t.style.transform = 'translateX(-5em) scale(1)';
+						t.style.webkitTransform = "translate3d(-5em, 0, 0) scale(1)";
 						t.style.zIndex = '5';
 					}
 					else if (i == 1) {
 						t.style.transform = 'translateX(-17em) scale(0.9)';
+						t.style.webkitTransform = "translate3d(-17em, 0, 0) scale(0.9)";
 						t.style.zIndex = '4';
 					}
 					else if (i == 2) {
 						t.style.transform = 'translateX(-29em) scale(0.85)';
+						t.style.webkitTransform = "translate3d(-29em, 0, 0) scale(0.85)";
 						t.style.zIndex = '3';
 					}
 				}
 				else {
 					var count = (14 * (i - 2)) + 29;
 					t.style.transform = 'translateX(-' + count + 'em) scale(0.85)';
+					t.style.webkitTransform = "translate3d(-" + count + "em, 0, 0) scale(0.85)";
 					t.style.zIndex = '2';
 				}
+				t.style.transition = 'transform 0.2s';
+				t.style.webkitTransition = '-webkit-transform 0.2s';
 			}
 			it = sec[0].firstChild;
 			it.style.visibility = 'hidden';
@@ -174,6 +185,7 @@
 			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'closeb') {
 				var ser = event.target.parentNode.parentNode.parentNode.id;
 				var serC = event.target.parentNode.parentNode.parentNode.className;
+				event.target.parentNode.parentNode.parentNode.scrollLeft -= 100;
 				collapse(serC);
 			}
 			//			if (event.target.tagName.toLowerCase() === 'aside') { // serC = event.target.parentNode.className; // collapse(serC); // }

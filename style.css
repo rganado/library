@@ -2,6 +2,7 @@ body {
 	margin: 0;
 	padding: 0;
 	background-color: #9b9b9b;
+	font-family: 'Titillium Web', sans-serif;
 }
 
 .container-fluid {
@@ -20,12 +21,12 @@ nav {
 }
 
 nav h1 {
-	margin-left: 2em;
+	margin-left: 1em;
 }
 
 h1:nth-child(2) {
 	float: right;
-	margin-right: 2em;
+	margin-right: 1em;
 	text-align: right;
 }
 
@@ -66,6 +67,7 @@ section {
 	white-space: nowrap;
 	overflow-x: auto;
 	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
 }
 
 .b {
@@ -83,6 +85,8 @@ section {
 	display: absolute;
 	position: relative;
 	transition: transform 0.2s;
+	-webkit-transition: transform 0.2s;
+	-webkit-transform: translate3d(0, 0, 0);
 }
 
 article figure {
