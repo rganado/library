@@ -1,0 +1,114 @@
+[
+	{
+		"Series Name": "Miss Peregrine's Home For Peculiar Children"
+		, "Books in Series": "3"
+		, "Books": [
+			{
+				"Title": "Miss Peregrine's Home For Peculiar Children"
+				, "img": "/img/MissPeregrineCover.jpg"
+			}
+			, {
+				"Title": "Hollow City"
+				, "img": "/img/HollowCityCover.jpg"
+			}
+			, {
+				"Title": "Library of Souls"
+				, "img": "/img/LibraryofSoulsCover.jpg"
+			}
+		]
+		, "Author": "Ransom Riggs"
+		, "In Progress": "0"
+		, "id": "0"
+	}
+	, {
+		"Series Name": "Mistborn"
+		, "Books in Series": "7"
+		, "Books": [
+			{
+				"Title": "The Final Empire"
+				, "img": "/img/FinalEmpireCover.jpg"
+			}
+			, {
+				"Title": "The Well of Ascension"
+				, "img": "/img/WellofAscensionCover.jpg"
+			}
+			, {
+				"Title": "The Hero of Ages"
+				, "img": "/img/HeroofAgesCover.png"
+			}
+			, {
+				"Title": "The Allow of Law"
+				, "img": "/img/AlloyOfLawCover.jpg"
+			}
+			, {
+				"Title": "Shadows of Self"
+				, "img": "/img/ShadowsOfSelfCover.jpg"
+			}
+			, {
+				"Title": "Bands of Mourning"
+				, "img": "/img/BandsOfMourningCover.jpg"
+			}
+			, {
+				"Title": "Secret History"
+				, "img": "/img/SecretHistoryCover.jpg"
+			}
+		]
+		, "Author": "Brandon Sanderson"
+		, "In Progress": "1"
+		, "id": "1"
+	}
+	, {
+		"Series Name": "Harry Potter"
+		, "Books in Series": "7"
+		, "Books": [
+			{
+				"Title": "The Philosopher's Stone"
+				, "img": "https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher's_Stone_Book_Cover.jpg"
+			}
+			, {
+				"Title": "The Chamber of Secrets"
+				, "img": "https://upload.wikimedia.org/wikipedia/en/5/5c/Harry_Potter_and_the_Chamber_of_Secrets.jpg"
+			}
+			, {
+				"Title": "The Prisoner of Azkaban"
+				, "img": "https://upload.wikimedia.org/wikipedia/en/a/a0/Harry_Potter_and_the_Prisoner_of_Azkaban.jpg"
+			}
+			, {
+				"Title": "The Goblet of Fire"
+				, "img": "https://upload.wikimedia.org/wikipedia/en/c/c7/Harry_Potter_and_the_Goblet_of_Fire.jpg"
+			}
+			, {
+				"Title": "The Order of the Phoenix"
+				, "img": "https://upload.wikimedia.org/wikipedia/en/7/70/Harry_Potter_and_the_Order_of_the_Phoenix.jpg"
+			}
+			, {
+				"Title": "The Half-Blood Prince"
+				, "img": "https://upload.wikimedia.org/wikipedia/en/f/f0/Harry_Potter_and_the_Half-Blood_Prince.jpg"
+			}
+			, {
+				"Title": "The Deathly Hallows"
+				, "img": "https://upload.wikimedia.org/wikipedia/en/a/a9/Harry_Potter_and_the_Deathly_Hallows.jpg"
+			}
+		]
+		, "Author": "J.K. Rowling"
+		, "In Progress": "0"
+		, "id": "2"
+	}
+	, {
+		"Series Name": "A Court of Thorns and Roses"
+		, "Books in Series": "2"
+		, "Books": [
+			{
+				"Title": "A Court of Thorns and Roses"
+				, "img": "http://vignette2.wikia.nocookie.net/acourtofthornsandroses/images/5/56/A_Court_of_Thorns_and_Roses.jpg/revision/latest?cb=20150101152745"
+			}
+			, {
+				"Title": "A Court of Mist and Fury"
+				, "img": "http://vignette1.wikia.nocookie.net/acourtofthornsandroses/images/f/f9/A_Court_of_Mist_and_Fury_-_Cover.jpg/revision/latest?cb=20160114161509"
+			}
+		]
+		, "Author": "Sarah J. Maas"
+		, "In Progress": "1"
+		, "id": "3"
+	}
+]
