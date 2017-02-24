@@ -1,56 +1,60 @@
-html,
 body {
 	margin: 0;
 	padding: 0;
 	background-color: #9b9b9b;
-	width: auto;
 }
 
-nav {
-	height: 7vh;
-	background-color: black;
-	position: fixed;
-	top: 0;
-	width: 100%;
-	z-index: 999;
+.container-fluid {
+	margin: 0;
+	padding: 0;
 }
 
-main {
-	width: auto;
-	margin-top: 10vh;
-}
-
-div {
-	z-index: -5;
-}
-
-div img {
-	width: 10vw;
-	filter: invert(90%);
+#close {
+	display: none;
+	width: 6em;
+	height: 18em;
+	//background-color: red;
 }
 
 section {
-	/*
+	margin: 2em;
+	//background-color: white;
+	height: 20em;
 	white-space: nowrap;
 	overflow-x: auto;
 	overflow-y: hidden;
-*/
 }
 
-.book {
-	position: absolute;
-	z-index: 1;
+.b {
+	padding-top: 0em;
+}
+
+.b img {
+	min-height: 18em;
+	max-height: 18em;
+	min-width: 12em;
+	max-width: 12em;
+}
+
+.item {
+	display: absolute;
+	position: relative;
 	transition: transform 0.2s;
 }
 
-.book img {
-	width: 65vw;
-	min-height: 100vw;
-	max-height: 100vw;
+article figure {
+	margin-left: 1em;
+	margin-right: 1em;
 }
 
-.book figcaption {
-	display: none;
+aside figure {
+	float: left;
+	margin: 0;
 }
 
-footer {}
+aside figure img {
+	width: 5em;
+	margin-top: 6.5em;
+	padding-left: 0.5em;
+	filter: invert(90%);
+}

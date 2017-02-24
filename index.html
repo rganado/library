@@ -4,94 +4,72 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="style.css">
 	<title> Books </title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+
+	</style>
 </head>
 
 <body>
-	<nav> </nav>
-	<main id="main"></main>
-	<footer> </footer>
+	<nav></nav>
+	<main class="container-fluid"> </main>
 	<script>
-		var count = 0;
-		var data;
-		var ser_num, book_num;
-		var ser_name;
-
-		function shift(series, num) {
-			count++;
-			if (count % 2 == 0) {
-				shiftin(series, num);
+		function spread(series) {
+			console.log("Spread series " + series);
+			//item = document.getElementsByClassName('item'); //this is a problem
+			//console.log(item);
+			sec = document.getElementsByClassName(series);
+			var ser = series.substring(0, series.indexOf('T'));
+			var length = series.substring(series.indexOf('T') + 1, series.length);
+			console.log("ser = " + ser + " length = " + length);
+			for (var i = 0; i < length; i++) {
+				var t = document.getElementById(ser + 'T' + i).parentNode;
+				t.style.display = "inline-block";
+				t.style.transform = 'translateX(0em)';
 			}
-			else {
-				shiftout(series, num);
-			}
+			item = sec[0].firstChild;
+			console.log(item);
+			item.style.display = 'inline-block';
+			item.style.visibility = 'visible';
+			item.style.transform = 'translateX(0em)';
+			sec[0].style.overflowX = 'auto';
+			sec[0].id = 'opened';
 		}
 
-		function shiftout(series, seriesnum, num) {
-			//console.log("out");
-			for (var i = 0; i < num; i++) {
-				var book = document.getElementById(series + i);
-				//console.log(series + i);
-				var move = (70 * (i)) + 20;
-				book.style.transform = 'translateX(' + move + 'vw)';
-				if (num > 3) {
-					if (i == 2) {
-						for (var j = 0; j < data.length; j++) {
-							if (data[j]["Series Name"] == series) {
-								//console.log("Changing image");
-								var img = book.getElementsByTagName("IMG");
-								//console.log("SRC " + data[j].Books[2].img);
-								//console.log(img);
-								img[0].src = data[j].Books[2].img;
-								//console.log(img.src);
-							}
-						}
+		function collapse(series) {
+			console.log("Collapse series " + series)
+				//item = document.getElementsByClassName('item');
+				//console.log(item);
+			sec = document.getElementsByClassName(series);
+			var ser = series.substring(0, series.indexOf('T'));
+			var length = series.substring(series.indexOf('T') + 1, series.length);
+			console.log("ser = " + ser + " length = " + length);
+			for (var i = 0; i < length; i++) {
+				//console.log(i);
+				var t = document.getElementById(ser + 'T' + i).parentNode;
+				if (i < 3) {
+					if (i == 0) {
+						t.style.transform = 'translateX(-5em) scale(1)';
+						t.style.zIndex = '5';
 					}
-					else if (i > 2) {
-						document.getElementById(series + i).style.display = 'block';
+					else if (i == 1) {
+						t.style.transform = 'translateX(-17em) scale(0.9)';
+						t.style.zIndex = '4';
 					}
-				}
-				//document.querySelector('html').style.width = 'auto';
-			}
-			var close = document.getElementById('close');
-			close.style.display = 'block';
-			close.style.transform = 'translate(10vw, ' + (50 + (110 * seriesnum)) + 'vw)';
-			close.style.display = 'inline-block';
-			for (var i = 0; i < num; i++) {
-				var book = document.getElementById(series + i);
-				//console.log(series + i);
-				var move = (70 * (i)) + 20;
-				book.style.display = 'inline-block';
-			}
-			document.getElementById(series).overflow = 'auto';
-			document.getElementById(series).whiteSpace = 'nowrap';
-			//console.log('wrap ' + series);
-			ser_num = seriesnum;
-			book_num = num;
-			ser_name = series;
-		}
-
-		function shiftin(series, num) {
-			console.log("in");
-			for (var i = 0; i < num; i++) {
-				var book = document.getElementById(series + i);
-				//console.log(series + i);
-				var move = 10 * (i);
-				var scale = 1 - (0.05 * (i));
-				book.style.transform = 'translateX(' + move + 'vw) scale(' + scale + ')';
-				if (num > 3) {
-					var img = book.getElementsByTagName("IMG");
-					if (i == 2) {
-						img[0].src = "more.jpg";
-					}
-					else if (i > 2) {
-						document.getElementById(series + i).style.display = 'none';
+					else if (i == 2) {
+						t.style.transform = 'translateX(-29em) scale(0.85)';
+						t.style.zIndex = '3';
 					}
 				}
-				document.querySelector('html').style.width = '100vw';
+				else {
+					t.style.display = "none";
+				}
 			}
-			document.getElementById('close').style.display = 'none';
+			it = sec[0].firstChild;
+			it.style.visibility = 'hidden';
+			sec[0].style.overflowX = 'hidden';
+			sec[0].id = 'closed';
 		}
 
 		function readTextFile(file, callback) {
@@ -107,86 +85,80 @@
 		}
 		readTextFile("books.json", function (text) {
 			data = JSON.parse(text);
-			//console.log(data);
+			console.log(data);
 			populate();
 		});
 
 		function populate() {
-			//console.log("Length of Data = " + data.length);
-			//Close Button
-			var clo = document.createElement("DIV");
-			var clo_im = document.createElement("IMG");
-			clo_im.src = "close.png";
-			clo_im.id = "close";
-			clo_im.style.display = 'none';
-			clo.appendChild(clo_im);
+			//Get Main Tag
+			main = document.getElementsByTagName('MAIN');
+			main = main[0]; //Select first Main Tag
+			//Each Series gets a Section
 			for (var i = 0; i < data.length; i++) {
-				var booklen = data[i].Books.length;
-				var series = data[i]["Series Name"];
-				//console.log("Book Len = " + booklen);
-				main = document.getElementById("main");
-				var sec = document.createElement("SECTION");
-				sec.className = "series";
-				sec.id = series;
-				//console.log(sec.id);
-				for (var j = 0; j < data[i].Books.length; j++) {
-					var fig = document.createElement("FIGURE");
-					var img = document.createElement("IMG");
-					var cap = document.createElement("FIGCAPTION");
-					var move = 10 * j;
-					var scale = 1 - (0.05 * j);
-					//
-					fig.className = "book";
-					fig.id = data[i]["Series Name"] + j;
-					//console.log("Book id = " + data[i]["Series Name"] + j);
-					if (booklen <= 3) {
-						img.src = data[i].Books[j].img;
-					}
-					else {
-						if (j < 2) {
-							img.src = data[i].Books[j].img;
-						}
-						else if (j == 2) {
-							img.src = "more.jpg";
-						}
-						else {
-							img.src = data[i].Books[j].img;
-							fig.style.display = 'none';
-						}
-					}
-					cap.innerHTML = data[i].Books[j].Title;
-					fig.style.zIndex = -j;
-					fig.style.transform = 'translateX(' + move + 'vw) scale(' + scale + ')';
-					//Append child
-					fig.appendChild(img);
-					fig.appendChild(cap);
-					sec.appendChild(fig);
+				console.log(i);
+				var series = data[i];
+				var books = data[i]['Books'];
+				id = series["id"];
+				section = document.createElement("SECTION");
+				sectionC = id + 'T' + books.length;
+				section.className = sectionC;
+				section.id = 'closed';
+				//Each Section includes an aside with class 'item' and id 'close'
+				aside = document.createElement("ASIDE");
+				aside.className = 'item';
+				aside.id = 'close';
+				//Inside the aside is a figure with an image that points to 'close.png'
+				figure = document.createElement("FIGURE");
+				img = document.createElement("IMG");
+				img.src = 'close.png';
+				img.id = 'closeb';
+				//Add img to figure, figure to aside, aside to section
+				figure.appendChild(img);
+				aside.appendChild(figure);
+				section.appendChild(aside);
+				//Loop through books
+				for (var j = 0; j < books.length; j++) {
+					//Each book is in an article with class 'item'
+					article = document.createElement('ARTICLE');
+					article.className = 'item';
+					//Inside the article is a figure tag with class 'b'
+					figure = document.createElement('FIGURE');
+					figure.className = 'b';
+					figure.id = id + 'T' + j;
+					//The book image is placed in img tag
+					img = document.createElement('IMG');
+					img.id = 'bookimg';
+					img.src = books[j]['img'];
+					//Add img to figure, figure to article, article to section
+					figure.appendChild(img);
+					article.appendChild(figure);
+					section.appendChild(article);
 				}
-				var trans = 100 * (i) + 10 * i;
-				sec.style.transform = 'translateY(' + trans + 'vw)';
-				//Append to Main
-				main.appendChild(sec);
-				//console.log("Created Series");
+				main.appendChild(section);
+				spread(sectionC);
+				collapse(sectionC);
 			}
-			main.appendChild(clo);
 		}
 		document.querySelector('body').addEventListener('click', function (event) {
 			//console.log("Event " + event.target.tagName);
-			if (event.target.tagName.toLowerCase() === 'img') {
-				//console.log("id " + event.target.parentNode.id);
-				var ser = event.target.parentNode.parentNode.id;
-				//console.log(ser);
-				if (event.target.id == 'close') {
+			console.log(event.target.id);
+			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'bookimg') {
+				console.log('in');
+				var ser = event.target.parentNode.parentNode.parentNode.id;
+				var serC = event.target.parentNode.parentNode.parentNode.className;
+				//				console.log(ser); //console.log(serC);
+				if (ser == 'closed') {
 					//console.log('close');
-					shiftin(ser_name, book_num);
+					spread(serC);
 				}
-				for (var i = 0; i < data.length; i++) {
-					if (data[i]["Series Name"] == ser) {
-						shiftin(ser_name, book_num);
-						shiftout(ser, i, data[i].Books.length);
-					}
-				}
+				//				for (var i = 0; i < data.length; i++) { // if (data[i][ "Series Name"]==s er) { // shiftin(ser_name, book_num); // shiftout(ser, i, data[i].Books.length); // } // }
 			}
+			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'closeb') {
+				var ser = event.target.parentNode.parentNode.parentNode.id;
+				var serC = event.target.parentNode.parentNode.parentNode.className;
+				collapse(serC);
+			}
+			//			if (event.target.tagName.toLowerCase() === 'aside') { // serC = event.target.parentNode.className; // collapse(serC); // }
 		});
 	</script>
 </body>
