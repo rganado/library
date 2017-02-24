@@ -9,7 +9,7 @@
 		body {
 			margin: 0;
 			padding: 0;
-			background-color: grey;
+			background-color: #9b9b9b;
 		}
 		
 		.container-fluid {
@@ -19,14 +19,14 @@
 		
 		#close {
 			display: none;
-			width: 5em;
+			width: 6em;
 			height: 18em;
-			background-color: red;
+			//background-color: red;
 		}
 		
 		section {
 			margin: 2em;
-			background-color: white;
+			//background-color: white;
 			height: 20em;
 			white-space: nowrap;
 			overflow-x: auto;
@@ -40,6 +40,8 @@
 		.b img {
 			min-height: 18em;
 			max-height: 18em;
+			min-width: 12em;
+			max-width: 12em;
 		}
 		
 		.item {
@@ -52,49 +54,41 @@
 			margin-left: 1em;
 			margin-right: 1em;
 		}
+		
+		aside figure {
+			float: left;
+			margin: 0;
+		}
+		
+		aside figure img {
+			width: 5em;
+			margin-top: 6.5em;
+			padding-left: 0.5em;
+			filter: invert(90%);
+		}
 	</style>
 </head>
 
 <body>
 	<nav></nav>
-	<main class="container-fluid">
-		<section>
-			<aside class="item" id="close">
-				<figure></figure>
-			</aside>
-			<article class="item">
-				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
-			</article>
-			<article class="item">
-				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
-			</article>
-			<article class="item">
-				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
-			</article>
-			<article class="item">
-				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
-			</article>
-			<article class="item">
-				<figure class="b"><img src="MissPeregrineCover.jpg"></figure>
-			</article>
-		</section>
-	</main>
+	<main class="container-fluid"> </main>
 	<script>
-		window.onload = function () {
-			spread();
-			collapse();
-		}
-
-		function spread() {
-			item = document.getElementsByClassName('item');
+		//		window.onload = function () { // spread(); // collapse(); // }
+		function spread(series) {
+			console.log("Spread series " + series);
+			//item = document.getElementsByClassName('item'); //this is a problem
 			//console.log(item);
-			sec = document.getElementsByTagName('SECTION');
-			for (var i = 0; i < item.length; i++) {
-				var t = item[i];
+			sec = document.getElementsByClassName(series);
+			var ser = series.substring(0, series.indexOf('T'));
+			var length = series.substring(series.indexOf('T') + 1, series.length);
+			console.log("ser = " + ser + " length = " + length);
+			for (var i = 0; i < length; i++) {
+				var t = document.getElementById(ser + 'T' + i).parentNode;
 				t.style.display = "inline-block";
 				t.style.transform = 'translateX(0em)';
 			}
-			item = document.getElementById('close');
+			item = sec[0].firstChild;
+			console.log(item);
 			item.style.display = 'inline-block';
 			item.style.visibility = 'visible';
 			item.style.transform = 'translateX(0em)';
@@ -102,24 +96,28 @@
 			sec[0].id = 'opened';
 		}
 
-		function collapse() {
-			item = document.getElementsByClassName('item');
-			//console.log(item);
-			sec = document.getElementsByTagName('SECTION');
-			for (var i = 0; i < item.length; i++) {
+		function collapse(series) {
+			console.log("Collapse series " + series)
+				//item = document.getElementsByClassName('item');
+				//console.log(item);
+			sec = document.getElementsByClassName(series);
+			var ser = series.substring(0, series.indexOf('T'));
+			var length = series.substring(series.indexOf('T') + 1, series.length);
+			console.log("ser = " + ser + " length = " + length);
+			for (var i = 0; i < length; i++) {
 				//console.log(i);
-				var t = item[i];
-				if (i < 4) {
-					if (i == 1) {
-						t.style.transform = 'translateX(-3em) scale(1)';
+				var t = document.getElementById(ser + 'T' + i).parentNode;
+				if (i < 3) {
+					if (i == 0) {
+						t.style.transform = 'translateX(-5em) scale(1)';
 						t.style.zIndex = '5';
 					}
-					else if (i == 2) {
-						t.style.transform = 'translateX(-15em) scale(0.9)';
+					else if (i == 1) {
+						t.style.transform = 'translateX(-17em) scale(0.9)';
 						t.style.zIndex = '4';
 					}
-					else if (i == 3) {
-						t.style.transform = 'translateX(-27em) scale(0.85)';
+					else if (i == 2) {
+						t.style.transform = 'translateX(-29em) scale(0.85)';
 						t.style.zIndex = '3';
 					}
 				}
@@ -127,9 +125,8 @@
 					t.style.display = "none";
 				}
 			}
-			it = document.getElementById('close');
+			it = sec[0].firstChild;
 			it.style.visibility = 'hidden';
-			//it.style.display = 'none';
 			sec[0].style.overflowX = 'hidden';
 			sec[0].id = 'closed';
 		}
@@ -158,22 +155,69 @@
 			//Each Series gets a Section
 			for (var i = 0; i < data.length; i++) {
 				console.log(i);
+				var series = data[i];
+				var books = data[i]['Books'];
+				id = series["id"];
+				section = document.createElement("SECTION");
+				sectionC = id + 'T' + books.length;
+				section.className = sectionC;
+				section.id = 'closed';
+				//Each Section includes an aside with class 'item' and id 'close'
+				aside = document.createElement("ASIDE");
+				aside.className = 'item';
+				aside.id = 'close';
+				//Inside the aside is a figure with an image that points to 'close.png'
+				figure = document.createElement("FIGURE");
+				img = document.createElement("IMG");
+				img.src = 'close.png';
+				img.id = 'closeb';
+				//Add img to figure, figure to aside, aside to section
+				figure.appendChild(img);
+				aside.appendChild(figure);
+				section.appendChild(aside);
+				//Loop through books
+				for (var j = 0; j < books.length; j++) {
+					//Each book is in an article with class 'item'
+					article = document.createElement('ARTICLE');
+					article.className = 'item';
+					//Inside the article is a figure tag with class 'b'
+					figure = document.createElement('FIGURE');
+					figure.className = 'b';
+					figure.id = id + 'T' + j;
+					//The book image is placed in img tag
+					img = document.createElement('IMG');
+					img.id = 'bookimg';
+					img.src = books[j]['img'];
+					//Add img to figure, figure to article, article to section
+					figure.appendChild(img);
+					article.appendChild(figure);
+					section.appendChild(article);
+				}
+				main.appendChild(section);
+				spread(sectionC);
+				collapse(sectionC);
 			}
 		}
 		document.querySelector('body').addEventListener('click', function (event) {
 			//console.log("Event " + event.target.tagName);
-			if (event.target.tagName.toLowerCase() === 'img') {
+			console.log(event.target.id);
+			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'bookimg') {
+				console.log('in');
 				var ser = event.target.parentNode.parentNode.parentNode.id;
-				console.log(ser);
+				var serC = event.target.parentNode.parentNode.parentNode.className;
+				//				console.log(ser); //console.log(serC);
 				if (ser == 'closed') {
 					//console.log('close');
-					spread();
+					spread(serC);
 				}
 				//				for (var i = 0; i < data.length; i++) { // if (data[i][ "Series Name"]==s er) { // shiftin(ser_name, book_num); // shiftout(ser, i, data[i].Books.length); // } // }
 			}
-			if (event.target.tagName.toLowerCase() === 'aside') {
-				collapse();
+			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'closeb') {
+				var ser = event.target.parentNode.parentNode.parentNode.id;
+				var serC = event.target.parentNode.parentNode.parentNode.className;
+				collapse(serC);
 			}
+			//			if (event.target.tagName.toLowerCase() === 'aside') { // serC = event.target.parentNode.className; // collapse(serC); // }
 		});
 	</script>
 </body>

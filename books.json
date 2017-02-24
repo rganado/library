@@ -18,6 +18,7 @@
 		]
 		, "Author": "Ransom Riggs"
 		, "In Progress": "0"
+		, "id": "0"
 	}
 	, {
 		"Series Name": "Mistborn"
@@ -54,6 +55,7 @@
 		]
 		, "Author": "Brandon Sanderson"
 		, "In Progress": "1"
+		, "id": "1"
 	}
 	, {
 		"Series Name": "Harry Potter"
@@ -90,5 +92,6 @@
 		]
 		, "Author": "J.K. Rowling"
 		, "In Progress": "0"
+		, "id": "2"
 	}
 ]
