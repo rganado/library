@@ -49,6 +49,11 @@ function saltHashPassword(userpassword) {
 	return passwordData;
 }
 
+function checkHashPassword(pass, salt) {
+	var passwordData = sha512(pass, salt);
+	return passwordData.passwordHash;
+}
+
 saltHashPassword('MYPASSWORD');
 saltHashPassword('MYPASSWORD');
 
@@ -65,18 +70,47 @@ app.get('/library', function (req, res) {
 
 app.post('/library/login', function (req, res) {
 	console.log('Actual POST');
+	console.log(req.body);
 	var user = req.body.username;
-	var passD = saltHashPassword(req.body.password);
-	var pass = passD.passwordHash;
-	var salt = passD.salt;
-	console.log(user + " " + pass);
-	var query = connection.query('SELECT * from users where user = ?', user, function(err, result) {
-		console.log(err);
-		console.log(result);
-	});
-	res.sendFile(__dirname + '/public/index.html');
-	console.log(query.sql);
+	var pass = req.body.password;
+	if (req.body.button == "Create") {
+		console.log('Create entry');
+		var passD = saltHashPassword(pass);
+		var password = passD.passwordHash;
+		var salt = passD.salt;
+		var query = connection.query('INSERT INTO users (user, pass, salt) values (?, ?, ?)', [user, password, salt], function(err, result) {
+			if (err) {
+			} else {
+				console.log('Created user');
+				res.sendFile(__dirname + '/public/index.html');
+			}
+		});
+	} else {
+		connection.query('SELECT pass, salt from users where user = ?', user, function(err, result) {
+			if (err) {
+			} else {
+				console.log("ELSE");
+				console.log(result);
+				var resultPass = result[0].pass;
+				var resultSalt = result[0].salt;
+				console.log("resultPass = " + resultPass);
+				var passD = checkHashPassword(pass, resultSalt);
+				console.log("passD = " + passD);
+				if (passD == resultPass) {
+					console.log('Success');
+				} else {
+					console.log('Unsuccessful');
+				}
+			}
+		});
+		console.log('Query');
+		res.sendFile(__dirname + '/public/index.html');
+	}
 });
+
+function saveQ(r) {
+	resultQ = r;
+}
 
 app.listen(process.env.PORT || 3000, function () {
 	console.log('Listening on http://localhost:' + (process.env.PORT || 3000))
