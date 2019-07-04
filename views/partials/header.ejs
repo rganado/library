@@ -1,0 +1,17 @@
+<!-- views/partials/header.ejs -->
+
+<nav>
+	<h1 class="top">E-BRARY</h1>
+	<h1 class="menuicon top" onclick="menu()">⋮</h1>
+	<div id='sign' style="display: none">
+		<div class="signin">
+			<form method="POST" action="/library/login">
+				<input type="username" name="username" placeholder="Username">
+				<input type="password" name="password" placeholder="Password">
+				<input type="submit" value="Submit" name="button">
+				<input type="submit" value="Create" name="button"> 
+			</form>
+		</div>
+		<div class="signedin"> </div>
+	</div>
+</nav>

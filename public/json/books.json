@@ -5,15 +5,15 @@
 		, "Books": [
 			{
 				"Title": "Miss Peregrine's Home For Peculiar Children"
-				, "img": "./img/MissPeregrineCover.jpg"
+				, "img": "static/img/MissPeregrineCover.jpg"
 			}
 			, {
 				"Title": "Hollow City"
-				, "img": "./img/HollowCityCover.jpg"
+				, "img": "static/img/HollowCityCover.jpg"
 			}
 			, {
 				"Title": "Library of Souls"
-				, "img": "./img/LibraryofSoulsCover.jpg"
+				, "img": "static/img/LibraryofSoulsCover.jpg"
 			}
 		]
 		, "Author": "Ransom Riggs"
@@ -26,31 +26,31 @@
 		, "Books": [
 			{
 				"Title": "The Final Empire"
-				, "img": "./img/FinalEmpireCover.jpg"
+				, "img": "static/img/FinalEmpireCover.jpg"
 			}
 			, {
 				"Title": "The Well of Ascension"
-				, "img": "./img/WellofAscensionCover.jpg"
+				, "img": "static/img/WellofAscensionCover.jpg"
 			}
 			, {
 				"Title": "The Hero of Ages"
-				, "img": "./img/HeroofAgesCover.png"
+				, "img": "static/img/HeroofAgesCover.png"
 			}
 			, {
 				"Title": "The Allow of Law"
-				, "img": "./img/AlloyOfLawCover.jpg"
+				, "img": "static/img/AlloyOfLawCover.jpg"
 			}
 			, {
 				"Title": "Shadows of Self"
-				, "img": "./img/ShadowsOfSelfCover.jpg"
+				, "img": "static/img/ShadowsOfSelfCover.jpg"
 			}
 			, {
 				"Title": "Bands of Mourning"
-				, "img": "./img/BandsOfMourningCover.jpg"
+				, "img": "static/img/BandsOfMourningCover.jpg"
 			}
 			, {
 				"Title": "Secret History"
-				, "img": "./img/SecretHistoryCover.jpg"
+				, "img": "static/img/SecretHistoryCover.jpg"
 			}
 		]
 		, "Author": "Brandon Sanderson"

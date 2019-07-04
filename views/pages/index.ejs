@@ -1,0 +1,191 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>    
+</head>
+<body>
+
+
+<% include ../partials/header %>
+
+
+    <main class="container-fluid"> </main>
+	<script>
+		function spread(series) {
+			console.log("Spread series " + series);
+			//item = document.getElementsByClassName('item'); //this is a problem
+			//console.log(item);
+			sec = document.getElementsByClassName(series);
+			var ser = series.substring(0, series.indexOf('T'));
+			var length = series.substring(series.indexOf('T') + 1, series.length);
+			console.log("ser = " + ser + " length = " + length);
+			for (var i = 0; i < length; i++) {
+				var t = document.getElementById(ser + 'T' + i).parentNode;
+				t.style.display = "inline-block";
+				t.style.transform = 'translateX(0em)';
+				t.style.webkitTransform = 'translate3d(0em, 0, 0)';
+				t.style.transition = 'transform 0.2s';
+				t.style.webkitTransition = '-webkit-transform 0.2s';
+			}
+			item = sec[0].firstChild;
+			console.log(item);
+			item.style.display = 'inline-block';
+			item.style.visibility = 'visible';
+			item.style.transform = 'translateX(0em)';
+			item.style.webkitTransform = 'translate3d(0em, 0, 0)';
+			sec[0].style.overflowX = 'auto';
+			sec[0].id = 'opened';
+		}
+		function collapse(series) {
+			console.log("Collapse series " + series)
+				//item = document.getElementsByClassName('item');
+				//console.log(item);
+			sec = document.getElementsByClassName(series);
+			var ser = series.substring(0, series.indexOf('T'));
+			var length = series.substring(series.indexOf('T') + 1, series.length);
+			console.log("ser = " + ser + " length = " + length);
+			for (var i = 0; i < length; i++) {
+				//console.log(i);
+				var t = document.getElementById(ser + 'T' + i).parentNode;
+				if (i < 3) {
+					if (i == 0) {
+						t.style.transform = 'translateX(-5em) scale(1)';
+						t.style.webkitTransform = "translate3d(-5em, 0, 0) scale(1)";
+						t.style.zIndex = '5';
+					}
+					else if (i == 1) {
+						t.style.transform = 'translateX(-17em) scale(0.9)';
+						t.style.webkitTransform = "translate3d(-17em, 0, 0) scale(0.9)";
+						t.style.zIndex = '4';
+					}
+					else if (i == 2) {
+						t.style.transform = 'translateX(-29em) scale(0.85)';
+						t.style.webkitTransform = "translate3d(-29em, 0, 0) scale(0.85)";
+						t.style.zIndex = '3';
+					}
+				}
+				else {
+					var count = (14 * (i - 2)) + 29;
+					t.style.transform = 'translateX(-' + count + 'em) scale(0.85)';
+					t.style.webkitTransform = "translate3d(-" + count + "em, 0, 0) scale(0.85)";
+					t.style.zIndex = '2';
+				}
+				t.style.transition = 'transform 0.2s';
+				t.style.webkitTransition = '-webkit-transform 0.2s';
+			}
+			it = sec[0].firstChild;
+			it.style.visibility = 'hidden';
+			sec[0].style.overflowX = 'hidden';
+			sec[0].id = 'closed';
+		}
+		function readTextFile(file, callback) {
+			var rawFile = new XMLHttpRequest();
+			rawFile.overrideMimeType("application/json");
+			rawFile.open("GET", file, true);
+			rawFile.onreadystatechange = function () {
+				if (rawFile.readyState === 4 && rawFile.status == "200") {
+					callback(rawFile.responseText);
+				}
+			}
+			rawFile.send(null);
+		}
+		readTextFile("static/json/books.json", function (text) {
+			data = JSON.parse(text);
+			console.log(data);
+			populate();
+		});
+		function populate() {
+			//Get Main Tag
+			main = document.getElementsByTagName('MAIN');
+			main = main[0]; //Select first Main Tag
+			//Each Series gets a Section
+			for (var i = 0; i < data.length; i++) {
+				console.log(i);
+				var series = data[i];
+				var books = data[i]['Books'];
+				id = series["id"];
+				section = document.createElement("SECTION");
+				sectionC = id + 'T' + books.length;
+				section.className = sectionC;
+				section.id = 'closed';
+				//Each Section includes an aside with class 'item' and id 'close'
+				aside = document.createElement("ASIDE");
+				aside.className = 'item';
+				aside.id = 'close';
+				//Inside the aside is a figure with an image that points to 'close.png'
+				figure = document.createElement("FIGURE");
+				img = document.createElement("IMG");
+				img.src = 'static/img/close.png';
+				img.id = 'closeb';
+				//Add img to figure, figure to aside, aside to section
+				figure.appendChild(img);
+				aside.appendChild(figure);
+				section.appendChild(aside);
+				//Loop through books
+				for (var j = 0; j < books.length; j++) {
+					//Each book is in an article with class 'item'
+					article = document.createElement('ARTICLE');
+					article.className = 'item';
+					//Inside the article is a figure tag with class 'b'
+					figure = document.createElement('FIGURE');
+					figure.className = 'b';
+					figure.id = id + 'T' + j;
+					//The book image is placed in img tag
+					img = document.createElement('IMG');
+					img.id = 'bookimg';
+					img.src = books[j]['img'];
+					//Add img to figure, figure to article, article to section
+					figure.appendChild(img);
+					article.appendChild(figure);
+					section.appendChild(article);
+				}
+				main.appendChild(section);
+				spread(sectionC);
+				collapse(sectionC);
+			}
+		}
+		document.querySelector('main').addEventListener('click', function (event) {
+			//console.log("Event " + event.target.tagName);
+			console.log(event.target.id);
+			var menu = document.getElementById('sign');
+			if (menu.style.display != 'none') {
+				menu.style.display = 'none';
+			}
+			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'bookimg') {
+				console.log('in');
+				var ser = event.target.parentNode.parentNode.parentNode.id;
+				var serC = event.target.parentNode.parentNode.parentNode.className;
+				//				console.log(ser); //console.log(serC);
+				if (ser == 'closed') {
+					//console.log('close');
+					spread(serC);
+				}
+				//				for (var i = 0; i < data.length; i++) { // if (data[i][ "Series Name"]==s er) { // shiftin(ser_name, book_num); // shiftout(ser, i, data[i].Books.length); // } // }
+			}
+			if (event.target.tagName.toLowerCase() === 'img' && event.target.id == 'closeb') {
+				var ser = event.target.parentNode.parentNode.parentNode.id;
+				var serC = event.target.parentNode.parentNode.parentNode.className;
+				event.target.parentNode.parentNode.parentNode.scrollLeft -= 100;
+				collapse(serC);
+			}
+			//			if (event.target.tagName.toLowerCase() === 'aside') { // serC = event.target.parentNode.className; // collapse(serC); // }
+		});
+		function menu() {
+			var menu = document.getElementById('sign');
+			if (menu.style.display == 'none') {
+				menu.style.display = 'block';
+			}
+			else {
+				menu.style.display = 'none';
+			}
+		}
+	</script>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

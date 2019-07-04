@@ -21,8 +21,16 @@ var mysql = require('mysql');
 
 //app.get('/', (req, res) => res.send('Hello World!'))
 
-app.use(express.static('public'));
-app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/public/index.html')));
+app.use('/static', express.static('public'));
+//app.get('/', (req, res) => res.sendFile(path.join(__dirname + '/public/index.html')));
+
+app.set('view engine', 'ejs');
+
+app.get('/', function(req, res) {
+	res.render('pages/index');
+});
+
+//app.get('/styles/style.css', (req, res) => res.sendFile(path.join(__dirname + '/public/styles/style.css')));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
