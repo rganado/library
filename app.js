@@ -39,7 +39,7 @@ var connection = mysql.createConnection({
 	host	: 'localhost',
 	database: 'library',
 	user	: 'rofel',
-	password: 'GanadoR0626',
+	password: '',
 });
 
 //Connect to MYSQL Server
